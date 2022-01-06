@@ -31,6 +31,22 @@ pipeline {
                 sh 'cd SampleWebApp && mvn clean package'
             }
         }
+
+        stage('Deploy to JFrog') {
+            steps {
+                rtUpload (
+                    serverId: 'my-jfrog',
+                    spec: '''{
+                          "files": [
+                            {
+                              "pattern": "**/*.war",
+                              "target": "demo-repo/"
+                            }
+                        ]
+                    }''',
+                )
+            }
+        }
     
         stage('Deploy to Tomcat') {
             steps {
