@@ -1,0 +1,14 @@
+name: test var
+on: push
+env:
+  DAY_OF_WEEK: Monday
+
+jobs:
+  greeting_job:
+    runs-on: ubuntu-latest
+    env:
+      DAY_OF_WEEK: Tuesday
+    steps:
+      - name: "Say Hello Mona it's Monday"
+        run: echo "Today is $DAY_OF_WEEK!"
+   
