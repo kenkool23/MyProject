@@ -1,6 +1,7 @@
 name: test var
 on: push
 env:
+  MONTH_OF_YEAR: February
   DAY_OF_WEEK: Monday
 
 jobs:
@@ -9,6 +10,8 @@ jobs:
     env:
       DAY_OF_WEEK: Tuesday
     steps:
-      - name: "Say Hello Mona it's Monday"
-        run: echo "Today is $DAY_OF_WEEK!"
+      - name: "Say day/month"
+        run: |
+          echo "Today is $DAY_OF_WEEK!"
+          echo "Today is $MONTH_OF_YEAR!"
    
