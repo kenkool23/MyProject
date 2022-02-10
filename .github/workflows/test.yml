@@ -14,4 +14,5 @@ jobs:
         run: |
           echo "Today is $DAY_OF_WEEK!"
           echo "Today is $MONTH_OF_YEAR!"
+          echo "This is a commit message: ${{ github.event.head_commit.message }}"
    
