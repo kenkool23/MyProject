@@ -16,7 +16,13 @@ jobs:
     steps:
       - name: "Say day/month"
         run: |
+ new
           echo ${{ github.ref_name }}
+
+          echo "${{ github.ref_name }}"
+          echo "${{ github.run_number }}"
+          echo "${{ github.run_id }}"
+release/fixer
           echo "Today is $DAY_OF_WEEK!"
           echo "Today is $MONTH_OF_YEAR!"
           echo "This is a commit message: ${{ github.event.head_commit.message }}"
