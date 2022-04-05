@@ -1,5 +1,7 @@
 name: test var
 on: 
+  pull_request:
+    branches: [release/*]
   push:
     branches: [release/*]
 env:
@@ -20,4 +22,12 @@ jobs:
           echo "Today is $DAY_OF_WEEK!"
           echo "Today is $MONTH_OF_YEAR!"
           echo "This is a commit message: ${{ github.event.head_commit.message }}"
+          
+  second_job:
+    runs-on: ubuntu-latest
+    if: github.ref != 'refs/heads/release*'
+    steps:
+      - name: "Say day/month"
+        run: |
+          echo "Today is $DAY_OF_WEEK!"
    
