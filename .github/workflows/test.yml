@@ -25,7 +25,8 @@ jobs:
           
   second_job:
     runs-on: ubuntu-latest
-    if: ${{ github.ref == 'refs/heads/release/*' }}
+    #if: ${{ github.ref == 'refs/heads/release/*' }}
+    if: ${{ github.ref_name == 'release/*' }}
     needs: greeting_job
     steps:
       - name: "Say day/month"
