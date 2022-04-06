@@ -28,7 +28,7 @@ jobs:
           
   second_job:
     runs-on: ubuntu-latest
-    if: startsWith(github.ref_name, 'release')
+    if: startsWith(github.ref_name, 'release/')
     #if: github.ref == '${{ env.BRANCH_NAME }}'
     #if: github.ref_name == 'release/**'
     needs: greeting_job
