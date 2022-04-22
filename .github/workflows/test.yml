@@ -1,9 +1,13 @@
 name: test var
 on: 
   pull_request:
-    branches: [release/*]
+    branches: 
+    - release/*
+    - develop
   push:
-    branches: [release/*]
+    branches:
+    - release/*
+    - develop
 env:
   BRANCH_NAME: ${{ github.ref }}
   MONTH_OF_YEAR: February
@@ -28,7 +32,7 @@ jobs:
           
   second_job:
     runs-on: ubuntu-latest
-    if: startsWith(github.ref_name, 'release/')
+    if: ${{ (github.ref == 'refs/heads/develop') || startsWith(github.ref_name, 'release/') }}
     #if: github.ref == '${{ env.BRANCH_NAME }}'
     #if: github.ref_name == 'release/**'
     needs: greeting_job
