@@ -4,7 +4,7 @@
   <groupId>com.sample.webproject</groupId>
   <artifactId>SampleWebApp</artifactId>
   <packaging>war</packaging>
-  <version>1.0.${BuildNumber}-SNAPSHOT</version>
+  <version>1.0.${build.number}</version>
   <name>SampleWebApp Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <dependencies>
@@ -16,6 +16,6 @@
     </dependency>
   </dependencies>
   <build>
-    <finalName>${project.artifactId}${project.version}</finalName>
+    <finalName>${project.artifactId}-${project.version}</finalName>
 </build>
 </project>

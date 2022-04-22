@@ -12,9 +12,39 @@ pipeline {
                 git "${GIT_URL}"
             }
         }
+        stage("SonarQube analysis") {
+            steps {
+              withSonarQubeEnv('sonar') {
+                sh 'mvn -f SampleWebApp/pom.xml clean package sonar:sonar'
+              }
+            }
+          }
+        stage("Quality Gate") {
+            steps {
+              timeout(time: 1, unit: 'HOURS') {
+                waitForQualityGate abortPipeline: true
+              }
+            }
+          }
         stage('Build with Maven') {
             steps {
-                sh 'cd SampleWebApp && mvn clean package'
+                sh 'cd SampleWebApp && mvn clean package -Dbuild.number=${BUILD_NUMBER}'
+            }
+        }
+
+        stage('Deploy to JFrog') {
+            steps {
+                rtUpload (
+                    serverId: 'my-jfrog',
+                    spec: '''{
+                          "files": [
+                            {
+                              "pattern": "**/*.war",
+                              "target": "demo-repo/"
+                            }
+                        ]
+                    }''',
+                )
             }
         }
     

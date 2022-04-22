@@ -1,0 +1,43 @@
+name: test var
+on: 
+  pull_request:
+    branches: 
+    - release/*
+    - develop
+  push:
+    branches:
+    - release/*
+    - develop
+env:
+  BRANCH_NAME: ${{ github.ref }}
+  MONTH_OF_YEAR: February
+  DAY_OF_WEEK: Monday
+
+jobs:
+  greeting_job:
+    runs-on: ubuntu-latest
+    env:
+      DAY_OF_WEEK: Tuesday
+    steps:
+      - name: "Say day/month"
+        run: |
+          
+          echo "${{ github.ref_name }}"
+          echo "${{ github.run_number }}"
+          echo "${{ github.run_id }}"
+          echo "Today is $DAY_OF_WEEK!"
+          echo "Today is $MONTH_OF_YEAR!"
+          echo '${{ env.BRANCH_NAME }}'
+          echo "This is a commit message: ${{ github.event.head_commit.message }}"
+          
+  second_job:
+    runs-on: ubuntu-latest
+    if: ${{ (github.ref == 'refs/heads/develop') || startsWith(github.ref_name, 'release/') }}
+    #if: github.ref == '${{ env.BRANCH_NAME }}'
+    #if: github.ref_name == 'release/**'
+    needs: greeting_job
+    steps:
+      - name: "Say day/month"
+        run: |
+          echo "Today is $DAY_OF_WEEK!"
+   
